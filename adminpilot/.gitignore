@@ -21,3 +21,18 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Ignore cache files
+.cache/
+*.cache
+
+# Ignore log files
+*.log
+
+# Ignore system files
+*.pid
+*.lock
+*.db
+
+# Mesa shader cache
+mesa_shader_cache/

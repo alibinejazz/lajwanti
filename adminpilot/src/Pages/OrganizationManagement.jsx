@@ -1,17 +1,26 @@
-import React from 'react'
-import DataTable from '../Tables/AdminTable'
-import Card from '../Components/Card'
-import QueriesTable from '../Tables/QueriesTable'
+import React, { useState } from 'react';
+import Card from '../Components/Card';
+import OrganizationTable from '../Tables/OrganizationTable';
+import AddOrganizationForm from '../Forms/AddOrgForm';
 
 const OrganizationManagement = () => {
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const toggleAddForm = () => {
+    setShowAddForm((prevShow) => !prevShow);
+  };
+
   return (
     <div>
-      <Card height={800}>
-        {/* <DataTable/> */}
-      <QueriesTable/>
+      <Card>
+        {!showAddForm ? (
+          <OrganizationTable onAddOrganizationClick={toggleAddForm} />
+        ) : (
+          <AddOrganizationForm />
+        )}
       </Card>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
-export default OrganizationManagement
+export default OrganizationManagement;

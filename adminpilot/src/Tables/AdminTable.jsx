@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { mockData } from "./mockData";
-import { FaSearch, FaTimes } from "react-icons/fa";
+import { FaFile, FaSearch, FaTimes } from "react-icons/fa";
+import "../Tables/Tables.css"
 
-const DataTable = () => {
+const DataTable = ({onBackToDashboard}) => {
   const [searchFilters, setSearchFilters] = useState({
     name: "",
     email: "",
@@ -101,11 +102,11 @@ const DataTable = () => {
   return (
     <div className="container mx-auto px-4">
       {/* Responsive Table */}
-      <div className="overflow-x-auto rounded-2xl max-sm:h-screen">
-        <table className="min-w-full h-[720px] bg-white border border-gray-300">
+      <div className="overflow-x-auto max-sm:h-screen">
+        <table className="min-w-full bg-white  border-gray-300 ">
           <thead>
             <tr className="bg-[#f6fbfe]">
-              <th className="px-4 py-2 border">
+              <th className="px-4 py-3 border ">
                 {renderHeading("name", "Organization")}
               </th>
               <th className="px-4 py-2 border">
@@ -133,7 +134,7 @@ const DataTable = () => {
             {currentData.length > 0 ? (
               currentData.map((row) => (
                 <tr key={row.id}>
-                  <td className="px-4 py-2 border text-[#626183]">{row.name}</td>
+                  <td className="px-4 py-3 border text-[#626183]">{row.name}</td>
                   <td className="px-4 py-2 border text-[#626183]">{row.email}</td>
                   <td className="px-4 py-2 border text-[#626183]">{row.phoneNumber}</td>
                   <td className="px-4 py-2 border text-[#626183]">{row.city}</td>
@@ -141,7 +142,7 @@ const DataTable = () => {
                   <td className="px-4 py-2 border text-[#626183]">{row.assignedLimit}</td>
                   <td className="px-4 py-2 border text-[#626183]">{row.remainingLimit}</td>
                   <td className="px-4 py-2 border text-center">
-                    <button className="text-blue-500">View Log</button>
+                    <button className=""><FaFile/></button>
                   </td>
                 </tr>
               ))
@@ -204,6 +205,12 @@ const DataTable = () => {
                 </div>
               </td>
             </tr>
+        <button
+              className="mt-4 p-2 bg-blue-500 text-white rounded"
+              onClick={onBackToDashboard}
+            >
+              Back to Dashboard
+            </button>
           </tbody>
         </table>
       </div>

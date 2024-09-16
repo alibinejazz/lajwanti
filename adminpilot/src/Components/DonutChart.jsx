@@ -25,7 +25,7 @@ const DonutChart = () => {
       plotOptions: {
         pie: {
           donut: {
-            size: '70%' // Adjust size of the donut hole
+            size: '60%' // Adjust size of the donut hole
           }
         }
       },
@@ -33,7 +33,7 @@ const DonutChart = () => {
         show: false // Hide legend
       },
       dataLabels: {
-        enabled: false // Disable data labels inside the chart for cleaner look
+        enabled: true // Disable data labels inside the chart for cleaner look
       },
       fill: {
         opacity: 1 // Adjust fill opacity for the donut segments

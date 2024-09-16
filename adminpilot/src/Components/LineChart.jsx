@@ -1,3 +1,4 @@
+import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import React from "react";
 import Chart from "react-apexcharts";
 

@@ -7,10 +7,11 @@ import {
   FaTimes,
 } from "react-icons/fa"; // Importing icons
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false); 
+  const location = useLocation(); // UseLocation hook to get current path
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -39,27 +40,41 @@ const Sidebar = () => {
         <nav className="space-y-4 mt-14 w-full">
           <Link
             to="/"
-            className="flex items-center gap-2 py-3 px-2 hover:bg-[#e1ecf5] hover:text-[#4272a8] rounded"
+            className={`flex items-center gap-2 py-3 px-2 rounded 
+              ${
+                location.pathname === "/"
+                  ? "bg-[#e1ecf5] text-[#4272a8]"
+                  : "hover:bg-[#e1ecf5] hover:text-[#4272a8]"
+              }`}
           >
             <FaTachometerAlt />
             Dashboard
           </Link>
           <Link
             to="/organizations"
-            className="flex items-center gap-2 py-3 px-2 hover:bg-[#e1ecf5] hover:text-[#4272a8] rounded"
+            className={`flex items-center gap-2 py-3 px-2 rounded 
+              ${
+                location.pathname === "/organizations"
+                  ? "bg-[#e1ecf5] text-[#4272a8]"
+                  : "hover:bg-[#e1ecf5] hover:text-[#4272a8]"
+              }`}
           >
             <FaBuilding />
             Organization Management
           </Link>
           <Link
             to="/settings"
-            className="flex items-center gap-2 py-3 px-2 hover:bg-[#e1ecf5] hover:text-[#4272a8] rounded"
+            className={`flex items-center gap-2 py-3 px-2 rounded 
+              ${
+                location.pathname === "/settings"
+                  ? "bg-[#e1ecf5] text-[#4272a8]"
+                  : "hover:bg-[#e1ecf5] hover:text-[#4272a8]"
+              }`}
           >
             <FaCog />
             Settings
           </Link>
         </nav>
-        
       </aside>
 
       <div
@@ -68,12 +83,14 @@ const Sidebar = () => {
         md:ml-64 md:p-8`}
       >
         
-{!isOpen &&  <button
-          onClick={toggleSidebar}
-          className="md:hidden text-2xl mb-4 focus:outline-none fixed top-7 left-4 z-50" 
-        >
-          <FaBars />
-        </button>}
+        {!isOpen && (
+          <button
+            onClick={toggleSidebar}
+            className="md:hidden text-2xl mb-4 focus:outline-none fixed top-7 left-4 z-50"
+          >
+            <FaBars />
+          </button>
+        )}
     
       </div>
     </div>

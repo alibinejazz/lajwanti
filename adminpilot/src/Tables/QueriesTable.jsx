@@ -1,62 +1,11 @@
 import React, { useState } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
+import { queriesData } from "./queriesData";
 
-const baflDetailsData = [
-  {
-    query: "What Is Bafl, How To Make An Account On It Online From Home",
-    response: "Bafl Account Opening Info",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "How To Use Bafl To Make Money Online",
-    response: "Bafl Monetization Guide",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "What Are The Benefits Of Using Bafl",
-    response: "Bafl Advantages",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "Is Bafl Safe To Use",
-    response: "Bafl Security Measures",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "How Can I Contact Bafl Customer Support",
-    response: "Bafl Customer Service Channels",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "What Are The Bafl Fees And Charges",
-    response: "Bafl Cost Structure",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "Can I Use Bafl On My Mobile Phone",
-    response: "Bafl Mobile Compatibility",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "How Does Bafl Compare To Other Similar Platforms",
-    response: "Bafl vs. Competitors",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "What Are The Bafl Success Stories",
-    response: "Bafl User Testimonials",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-  {
-    query: "What Are The Bafl Terms And Conditions",
-    response: "Bafl Legal Information",
-    date: "10-09-2024, 01:00:00 PM",
-  },
-];
 
 // Add more rows as needed...
 
-const QueriesTable = () => {
+const QueriesTable = ({onBack}) => {
   const [globalSearch, setGlobalSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,7 +25,7 @@ const QueriesTable = () => {
   });
 
   // Filter data based on column filters, global search, and date
-  const filteredData = baflDetailsData.filter((row) => {
+  const filteredData = queriesData.filter((row) => {
     const matchesGlobalSearch =
       row.query.toLowerCase().includes(globalSearch.toLowerCase()) ||
       row.response.toLowerCase().includes(globalSearch.toLowerCase()) ||
@@ -128,29 +77,23 @@ const QueriesTable = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto">
       {/* Global Search */}
-      <div className="flex justify-between mb-4">
-        <div className="relative">
+      <div className="flex justify-between mb-4 items-center max-sm:flex-wrap">
           <input
             type="text"
-            placeholder="Global Search..."
-            className="border p-2 w-full"
+            placeholder="Search..."
+            className="px-8 py-3 border rounded-full w-full"
             value={globalSearch}
             onChange={(e) => setGlobalSearch(e.target.value)}
           />
-          <FaSearch className="absolute top-3 right-3 text-gray-500" />
-        </div>
-
-        {/* Date Filter */}
-        <div>
+          <FaSearch className="absolute top-4 left-2 text-gray-500" />
           <input
             type="date"
-            className="border p-2"
+            className="border p-3  ml-2 rounded-full"
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
           />
-        </div>
       </div>
 
       {/* Table */}
@@ -320,7 +263,12 @@ const QueriesTable = () => {
           </tbody>
         </table>
       </div>
-
+      <button
+              className="mt-4 p-2 bg-blue-500 text-white rounded"
+              onClick={onBack}
+            >
+              Back to Dashboard
+            </button>
       {/* Pagination and Items per Page Controls */}
     </div>
   );

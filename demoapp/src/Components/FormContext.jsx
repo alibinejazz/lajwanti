@@ -1,15 +1,21 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
-// Create the context
 const FormContext = createContext();
 
-// Create a custom hook for easier access to the context
 export const useFormContext = () => {
   return useContext(FormContext);
 };
 
-// Create a provider to wrap the app
+const generateRandomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 export const FormProvider = ({ children }) => {
+  const generateInvoiceNumber = () => {
+    const randomFourDigits = generateRandomNumber(1000, 9999);
+    return `INV-${randomFourDigits}`;
+  };
+
   const [formData, setFormData] = useState({
     customerName: "",
     email: "",
@@ -20,15 +26,32 @@ export const FormProvider = ({ children }) => {
     items: "",
     designCodes: "",
     bookingDate: "",
+    invoiceNumber: generateInvoiceNumber(),
   });
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const resetFormData = () => {
+    setFormData({
+      customerName: "",
+      email: "",
+      phoneNumber: "",
+      address: "",
+      orderNumber: "",
+      orderTakenBy: "",
+      items: "",
+      designCodes: "",
+      bookingDate: "",
+      invoiceNumber: generateInvoiceNumber(),
+    });
+  };
+
   return (
-    <FormContext.Provider value={{ formData, updateFormData, setFormData }}>
+    <FormContext.Provider value={{ formData, updateFormData, setFormData, resetFormData }}>
       {children}
     </FormContext.Provider>
   );
 };
+

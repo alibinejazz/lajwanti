@@ -1,22 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormField from "./FormField";
 import { useFormContext } from "./FormContext";
 import logo from "../images/Logo.png";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
+import useUpdateGoogleSheet from "./useUpdateGoogleSheet";
 
 const OrderBookingForm = () => {
-  const { formData, updateFormData } = useFormContext();
+  const { formData, updateFormData, resetFormData } = useFormContext();
   const nav = useNavigate();
+  const { updateGoogleSheet, isLoading, error, response } = useUpdateGoogleSheet();
+
 
   const handleChange = (field) => (e) => {
     updateFormData(field, e.target.value);
   };
 
+  useEffect(() => {
+    resetFormData();
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
-    nav("/measure");
-  };
+    const dataToSend = [
+      formData.customerName,
+      formData.phoneNumber,
+      formData.address,
+      formData.email,
+      formData.invoiceNumber,
+      new Date().toLocaleDateString(), 
+      formData.items,
+      formData.designCodes,
+    ];
+
+    updateGoogleSheet(dataToSend);
+    console.log(dataToSend)
+
+    if (!error) {
+      nav("/measure");
+    }  };
 
   return (
     <div className="bg-[#f5f5f5] font-serif">
@@ -112,32 +133,18 @@ const OrderBookingForm = () => {
         >
           Please provide the order details.
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "1rem",
-          }}
-        >
-          <FormField
-            label="Order Number"
-            value={formData.orderNumber}
-            onChange={handleChange("orderNumber")}
-            placeholder="Enter order number"
-          />
-          <FormField
-            label="Order Taken By"
-            value={formData.orderTakenBy}
-            onChange={handleChange("orderTakenBy")}
-            placeholder="Enter order taker name"
-          />
-        </div>
         <div style={{ marginTop: "1rem" }}>
           <FormField
             label="Item"
             value={formData.items}
             onChange={handleChange("items")}
             placeholder="Enter item"
+          />
+          <FormField
+            label="Design Codes"
+            value={formData.designCodes}
+            onChange={handleChange("designCodes")}
+            placeholder="Enter design codes"
           />
         </div>
         <div
@@ -148,18 +155,7 @@ const OrderBookingForm = () => {
             marginTop: "1rem",
           }}
         >
-          <FormField
-            label="Design Codes"
-            value={formData.designCodes}
-            onChange={handleChange("designCodes")}
-            placeholder="Enter design codes"
-          />
-          <FormField
-            label="Booking Date"
-            value={formData.bookingDate}
-            onChange={handleChange("bookingDate")}
-            placeholder="Enter booking date"
-          />
+          
         </div>
 
         <button

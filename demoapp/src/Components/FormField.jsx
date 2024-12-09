@@ -1,6 +1,6 @@
 import React from "react";
 
-const FormField = ({ label, type = "text", value, onChange, placeholder, readOnly = false}) => (
+const FormField = ({ label, type = "text", value, onChange, placeholder, readOnly = false, required}) => (
   <div style={{ marginBottom: "1rem" }}>
     <label style={{ display: "block", marginBottom: "0.5rem", }}>{label}</label>
     <input
@@ -17,8 +17,7 @@ const FormField = ({ label, type = "text", value, onChange, placeholder, readOnl
         appearance:"textarea"
         
       }}
-      required
-      
+      required      
     />
   </div>
 );
